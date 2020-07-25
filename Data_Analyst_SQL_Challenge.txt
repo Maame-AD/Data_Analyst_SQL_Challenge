@@ -1,0 +1,89 @@
+1. SELECT COUNT(DISTINCT(u_id))
+   FROM users;
+
+   /* For the above query, 'DISTINCT' was used because a given user in a particular table may have multiple accounts which may be linked to each other. In this case and to prevent multiple counting and repetition, the DISTINCT function was used to differentiate the various users and then eventually give an accurate number of the persons who use Wave.*/
+
+
+2. SELECT * FROM transfers;
+   SELECT COUNT(transfer_id) FROM transfers
+   WHERE send_amount_currency = 'CFA';
+
+   /* To find the number of transfers that have been sent in the currency CFA, the 'COUNT' function is used. First and foremost, the first line indictates the selection of all transactions made through transfers. The 'COUNT' function as the name suggests, counts the number of rows in numbers and gives an output. From the SQL query given above, the 'COUNT' function would count from transfers and look out for ID's which have sent any amount in the currency CFA and produce an output which is a number.*/
+
+
+3. SELECT COUNT(DISTINCT (u_id))
+   FROM transfers
+   WHERE send_amount_currency = 'CFA';
+
+   /* The keyword here is 'different'. In finding the number of users alone, 'COUNT' alone would have been used but in this case, different users who had sent a transfer in CFA were asked to be found and to avoid repetition or clasehes in account details 'DISTINCT' was used to specify the exact people.*/
+
+
+4. SELECT COUNT(atx_id) AS Num_agent_transactions , DATE_PART('month',when_created) AS Months
+   FROM agent_transactions
+   WHERE DATE_PART('year', when_created) = 2018
+   GROUP BY 2;
+
+   /* The 'DATE_PART' function is used to extract several parts of a date. In this scenario, the function is being used to extract the month in the second column of the table. After extraction, the second table is named 'Months' and the first table is renamed as 'Num_agent_transactions'. My goal is to find the number of transactions performed in the month of 2018 broken down by month. The 'GROUP BY' is used so as a match to the second column of the table named as 'Months' to find the total amount of transactions performed in 2018 per month.*/
+
+
+ 5. SELECT COUNT (amount) AS Num_transaction_for_the_week, 
+    COUNT (amount) FILTER (WHERE amount < 0) AS Number_depositors,
+    SUM (amount) FILTER (WHERE amount < 0) AS Net_depositors,
+    COUNT (amount) FILTER (WHERE amount > 0) AS Number_withdrawers,
+    SUM (amount) FILTER (WHERE amount > 0) AS Net_withdrawers,
+    DATE_PART ('week', when_created) AS Week
+    FROM agent_transactions
+    GROUP BY 6;
+
+   
+
+
+6. SELECT agents.city AS Agent_City,
+   COUNT (atx_id) AS Atx_volume_city
+   FROM agent_transactions
+   INNER JOIN agents
+   ON agents.agent_id = agent_transactions.agent_id
+   WHERE (agent_transactions.when_created > (CURRENT_TIMESTAMP - INTERVAL '1 Week' ))
+   GROUP BY 1,2;
+
+   /*In this query, an 'INNER JOIN' is used because it combines and returns data from two or more tables based on common values in specific columns just as it is in the given case.*/
+
+
+7. SELECT agents.country AS Agents_Country,
+   agents.city AS Agents_City,
+   COUNT (atx_id) AS Atx_volume__city_by_country
+   FROM agent_transactions
+   INNER JOIN agents
+   ON agents.agent id = agent transactions.agent id
+   WHERE (agent_transactions.when_created > (CURRENT_TIMESTAMP - INTERVAL '1 Week' ))
+   GROUP BY 1,2;
+   
+
+
+8. SELECT transfers.kind AS Kind,
+   wallets.ledger_location AS Country,
+   SUM (transfers.send_amount_scalar) AS Volume
+   FROM transfers, wallets
+   WHERE transfers.when_created < (CURRENT_TIMESTAMP - INTERVAL '1 Week'))
+   GROUP BY 1,2;
+
+   
+
+9. SELECT transfers.kind AS Kind,
+   wallets.ledger_location AS Country,
+   SUM(transfers.send_amount_scalar) AS Volume
+   COUNT (DISTINCT transfer.source_wallet_id) AS Unique_sender,
+   COUNT (transfer_id) AS Transaction_count
+   FROM transfers, wallets
+   WHERE transfers.when_created > (CURRENT_TIMESTAMP-INTERVAL '1 Week')
+   GROUP BY 1,2;
+
+
+10. SELECT DISTINCT(source_wallet_id) AS Source_Wallet_id,  
+    SUM(send_amount_scalar) AS Amount_sent
+    FROM transfers
+    WHERE send_amount_currency = 'CFA'  
+    AND (SUM(send_amount_scalar) > 10000000)
+    AND transfers.when_created > (CURRENT_TIMESTAMP - INTERVAL '1 month')
+    GROUP BY 1;
+   
