@@ -50,12 +50,7 @@ Through this project, I demonstrate my proficiency in:
 - Integrate data visualisation tools (e.g., Power BI) for presenting insights graphically.  
 - Explore advanced SQL topics like **stored procedures** and **performance tuning**.
 
----
 
-## 📫 Connect with Me
-
-- **LinkedIn:** https://www.linkedin.com/in/maame-ad/ 
-- **Email:** madutwumwaah@gmail.com
 
 ---
 
