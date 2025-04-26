@@ -52,9 +52,13 @@ Through this project, I demonstrate my proficiency in:
 
 ---
 
-## 📂 Repository Structure
+## 📫 Connect with Me
+
+- **LinkedIn:** https://www.linkedin.com/in/maame-ad/ 
+- **Email:** madutwumwaah@gmail.com
 
 ---
-*Thank you for exploring this project! Feel free to connect with me or suggest improvements.*
+
+*Thank you for exploring this project! feel free to connect with me or suggest improvements.*
 
 
